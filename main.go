@@ -188,12 +188,12 @@ func wrappedMain() int {
 	} else {
 		var TTY packer.TTY
 		if !inPlugin {
-			var err error
-			TTY, err = tty.Open()
+			tty, err := tty.Open()
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "No tty available: %s\n", err)
 			} else {
-				defer TTY.Close()
+				TTY = tty
+				defer tty.Close()
 			}
 		}
 		ui = &packer.BasicUi{
